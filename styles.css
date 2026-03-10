@@ -87,3 +87,38 @@
         display: flex;
     }
 }
+
+.m-left {
+    animation: fadeInRight 0.75s ease;
+}
+.m-right {
+    animation: fadeInLeft 0.75s ease;
+}
+.chat-container {
+    animation: fadeInUp 0.75s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+}
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+}
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(8px);
+    }
+}

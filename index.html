@@ -12,179 +12,145 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body class="scroll-smooth w-screen h-screen overflow-hidden m-0 p-0 sm:p-3 bg-[#101010] text-[#f1f1f1] flex gap-3 bg-cover bg-[url('./images/bg-banner.png')] bg-fixed">
+<body class="w-screen min-h-screen h-auto m-0 p-0  bg-[#121212] text-[#f1f1f1]">
     
-    <div class="sm:hidden blur brightness-50 backdrop-blur z-30 fixed w-screen h-screen"></div>
+    <div onclick="openChat()" class="btn-open-menu p-4 w-15 aspect-square rounded-3xl flex items-center justify-center bg-green-500 z-20 fixed bottom-2 right-4">
+        <svg class="w-full aspect-square" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 10.5H16" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M8 14H13.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+    </div>
     
-    <header class="h-full menu fixed sm:relative sm:left-0 left-[-100%] font-semibold border-green-200 flex flex-col items-center text-md">
-        <aside class="flex flex-col bg-[#121212] rounded-xl w-full flex-1 p-12 xl:pb-14 gap-8 sm:gap-4">
-            <div class="">
-                <h5 class="text-2xl">NetShip</h5>
-            </div>
-            <div class="flex flex-1 overflow-y-hidden flex-col gap-10 sm:gap-8">
-                <nav class="flex flex-col nav gap-4">
-                    <a href="#home" class="before:bg-green-400 before:bg-green-400 nav-link relative">Ínicio</a>
-                    <a href="#about" class="before:bg-green-400 nav-link relative capitalize">Quem somos</a>
-                    <a href="#services" class="before:bg-green-400 nav-link relative">Serviços</a>
-                    <a href="#contact" class="before:bg-green-400 nav-link relative">Contacto</a>
-                </nav>
-            </div>
+    <div class="chat-container p-4 z-30 overflow-hidden m-4 rounded-3xl flex flex-col justify-between bg-[#f9f9f9] z-20 fixed inset-0 sm:inset-auto sm:bottom-2 sm:right-4 sm:w-80 sm:max-h-8/10">
+        <header class="text-[#111] flex items-center justify-between gap-3 text-center font-semibold uppercase text-green-500">
+            <button onclick="closeChat()" class="max-w-8 button-send transition-all disabled:brightness-75 w-8 aspect-square rounded-xl flex-1 items-center justify-center">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"></path> <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+            </button>
+            <p>Assistinte</p>
+        </header>
+        
+        <div class="scroll-smooth min-h-56 flex-1 py-3 overflow-y-scroll flex flex-col gap-3 messages-container"></div>
+        
+        <form onsubmit="event.preventDefault(); getSubmit()" class="flex w-full items-center gap-1">
+            <input class="input-messages text-[#111] transition-all outline-green-400 border-[0.05px] rounded-xl border-[#00000058] p-[8px] flex-1" type="text" placeholder="Digite a sua mensagem...">
+            <button class="max-w-10 button-send transition-all disabled:brightness-75 w-10 aspect-square bg-green-400 p-[7px] rounded-xl flex-1 items-center justify-center">
+                <svg class="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 14L12.2728 19.3032C12.5856 20.0331 13.5586 20.1103 13.9486 19.4185C14.7183 18.0535 15.8591 15.8522 17 13C19 8 20 4 20 4C20 4 16 5 11 7C8.14784 8.14086 5.94647 9.28173 4.58149 10.0514C3.88975 10.4414 3.96687 11.4144 4.69678 11.7272L10 14Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            </button>
+        </form>
+        
+    </div>
+    
+    <header class="sticky top-0 z-20 bg-[#121212] border-b font-semibold border-green-200 w-full flex items-center gap-2 text-md justify-center sm:justify-between px-[4%] ">
+        <nav class="flex gap-4 items-center nav">
+            <a href="#home" class="before:bg-green-400 before:bg-green-400 nav-link h-full relative py-6">Ínicio</a>
+            <a href="#about" class="before:bg-green-400 nav-link h-full relative py-6 capitalize overflow-hidden whitespace-nowrap text-ellipsis ">Quem somos</a>
+            <a href="#services" class="before:bg-green-400 nav-link h-full relative py-6">Serviços</a>
+            <a href="#contact" class="before:bg-green-400 nav-link h-full relative py-6">Contacto</a>
+        </nav>
+        <nav class="hidden sm:flex flex-row gap-4 items-center">
             
-            <div class="flex gap-2 flex-wrap items-center justify-center">
-                <a class="flex gap-1 items-center">
-                    <svg class="w-4 aspect-square" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:none;stroke:#ffffff;stroke-miterlimit:10;stroke-width:1.91px;}</style></defs><circle class="cls-1" cx="12" cy="7.25" r="5.73"></circle><path class="cls-1" d="M1.5,23.48l.37-2.05A10.3,10.3,0,0,1,12,13h0a10.3,10.3,0,0,1,10.13,8.45l.37,2.05"></path></g></svg>
-                    <p>Blog</p>
-                </a>
-                
-                <a>19</a>
-                <button class="hidden uppercase shadow-md shadow-green-600 p-2 px-2.5 rounded-md active:brightness-50 hover:brightness-50">Fale connosco</button>
-            </div>
+            <a class="flex gap-1 items-center">
+                <svg class="w-4 aspect-square" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:none;stroke:#ffffff;stroke-miterlimit:10;stroke-width:1.91px;}</style></defs><circle class="cls-1" cx="12" cy="7.25" r="5.73"></circle><path class="cls-1" d="M1.5,23.48l.37-2.05A10.3,10.3,0,0,1,12,13h0a10.3,10.3,0,0,1,10.13,8.45l.37,2.05"></path></g></svg>
+                <p>Blog</p>
+            </a>
             
-        </aside>
+            <a>19</a>
+            <button class="uppercase shadow-md shadow-green-600 p-2 px-2.5 rounded-md active:brightness-50 hover:brightness-50">Fale connosco</button>
+            
+        </nav>
     </header>
     
-    <main class="w-full flex-1 overflow-y-scroll scroll-smooth sm:rounded-xl">
-        <section id="home" class="px-[4%] w-full min-h-100 py-24 sm:py-60 flex justify-center items-center bg-cover bg-[url('./images/bg-banner.png')] bg-fixed sm:bg-none sm:bg-[#121212]" >
-            <button class="btn-menu fixed top-0 right-0 m-6 text-3xl border-none active:brightness-75 sm:hidden" ></button>
-            
-            <div class="fadeInRight flex flex-col flex-1 gap-4 justify-center items-center">
-                
-                <img class="w-116 xl:w-160 aspect-video object-cover mb-4" src="./images/logo.png">
-                <h1 class="hidden title uppercase font-bold text-5xl text-center">NetShip Ao</h1>
-                <h2 class="text-center text-4xl font-bold uppercase">Inovando o <span class="text-green-500">Futuro</span> Digital <span class="text-green-500">de Angola</span></h2>
-                
-                <p class="max-w-sm text-center mt-4">Criado por jovens, desenvolvedores de soluções digitais para o progresso Angola</p>
-                
-                <button class="bg-gradient-to-b uppercase from-green-600 to-green-800 active:brightness-75 hover:brightness-75 hover:translate-y-[-4px] transition-all rounded-md border-2 border-green-600 p-2 px-10">Saiba Mais</button>
-                
-            </div>
-            
-        </section>
+    <main id="home" class="px-[4%] w-screen min-h-100 py-24 sm:py-60 flex justify-center items-center bg-cover bg-[url('./images/bg-banner.png')] bg-fixed" >
         
-        <section id="about" class="w-full min-h-180 sm:grid grid-cols-2 gap-2 px-[8%] py-32 bg-gradient-to-b sm:bg-gradient-to-r from-[#121212] via-[#121212] to-transparent ">
+        <div class="fadeInRight flex flex-col flex-1 gap-4 justify-center items-center">
             
-            <div class="flex flex-col gap-6 col-span-1">
-                
-                <h2 class="text-3xl xl:text-4xl font-bold relative before:content-[''] before:absolute before:bottom-[-20%] before:left-0 before:bg-green-600 before:h-[1.85px] before:rounded-sm before:w-3/11 ">Quem Somos</h2>
-                
-                <h3 class="text-2xl xl:text-3xl font-semibold">Jovens para o 
-                    <span class="text-green-500">desenvolvimento de Angola!</span>
-                </h3>
-                
-                <p class="font-medium text-xl max-w-full">Somos uma StartUp focada na criação de soluções digitais inovadoras para impulsionar o crescimento de Angola </p>
-                
-            </div>
-                
-        </section>
+            <img class="w-116 xl:w-160 aspect-video object-cover mb-4" src="./images/logo.png">
+            <h1 class="hidden title uppercase font-bold text-5xl text-center">NetShip Ao</h1>
+            <h2 class="text-center text-4xl font-bold uppercase">Inovando o <span class="text-green-500">Futuro</span> Digital <span class="text-green-500">de Angola</span></h2>
+            
+            <p class="max-w-sm text-center mt-4">Criado por jovens, desenvolvedores de soluções digitais para o progresso Angola</p>
+            
+            <button class="bg-gradient-to-b uppercase from-green-600 to-green-800 active:brightness-75 hover:brightness-75 hover:translate-y-[-4px] transition-all rounded-md border-2 border-green-600 p-2 px-10">Saiba Mais</button>
+            
+        </div>
         
-        <section id="services" class="bg-[#121212] px-[4%] w-full min-h-100 py-40 flex flex-col">
-            
-            <h2 class="text-3xl xl:text-4xl font-bold relative text-center bg-gradient-to-t from-green-600 to-[#121212] bg-clip-text text-transparent">Nossos <span>Serviços</span></h2>
-            <h3 class="text-2xl xl:text-3xl font-medium relative text-center text-[#ffffffb9]">Soluções digitais que transformam</h3>
-            
-            <div class="services-grid grid gap-4 my-8 text-xl font-bold">
-                
-                <div class="rounded-3xl border-2 border-green-600 p-6 flex flex-col gap-4 justify-around items-center">
-                    <svg class="w-32 aspect-square shadow-2xl" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.982 19.61c.454-.7.909-1.6 1.236-2.755.755.29 1.273.636 1.591.909a8.182 8.182 0 0 1-2.864 1.845h.037v.001zm-8.8-1.855c.336-.273.845-.61 1.6-.91.336 1.164.773 2.064 1.236 2.764A8.2 8.2 0 0 1 6.2 17.755h-.018zm10.636-6.664c-.028-.81-.11-1.619-.245-2.418 1-.364 1.727-.8 2.236-1.2a8.136 8.136 0 0 1 1.282 3.618h-3.273zm-8.973-4.2a5.936 5.936 0 0 1-1.481-.8 8.2 8.2 0 0 1 2.654-1.7c-.427.636-.845 1.454-1.182 2.5h.01-.001zm7.137-2.5a8.145 8.145 0 0 1 2.654 1.7 6.01 6.01 0 0 1-1.481.8 9.58 9.58 0 0 0-1.182-2.5h.009zM14.8 9.118c.09.6.182 1.246.2 1.973H9c.027-.727.09-1.382.182-1.973 1.855.334 3.754.334 5.609 0h.009zM12 7.545c-.91 0-1.71-.072-2.39-.181.726-2.237 1.854-3.137 2.39-3.455.518.318 1.655 1.227 2.382 3.455A15.04 15.04 0 0 1 12 7.545zm-6.818-.072a8.03 8.03 0 0 0 2.245 1.2 18.368 18.368 0 0 0-.245 2.418h-3.31a8.13 8.13 0 0 1 1.319-3.618h-.01.001zm-1.3 5.436h3.3c.036.782.09 1.5.2 2.155a7.682 7.682 0 0 0-2.31 1.272 8.11 8.11 0 0 1-1.2-3.427h.01zM12 14.364c-1.09 0-2.027.09-2.845.236A16.91 16.91 0 0 1 9 12.91h6c-.027.608-.073 1.18-.145 1.69A15.388 15.388 0 0 0 12 14.355v.009zm0 5.727c-.545-.327-1.745-1.3-2.473-3.727A14.095 14.095 0 0 1 12 16.182c.955 0 1.773.063 2.482.182-.727 2.454-1.927 3.4-2.473 3.727H12zm6.927-3.764a7.634 7.634 0 0 0-2.309-1.272 17.95 17.95 0 0 0 .2-2.146h3.31a8.11 8.11 0 0 1-1.2 3.418h-.001zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" fill="#1a8e31"></path></g></svg>
-                    <h3 class="capitalize">criação, manutenção e correcção de sites</h3>
-                </div>
-                
-                <div class="rounded-3xl border-2 border-green-600 p-6 flex flex-col gap-4 justify-around items-center">
-                    <svg class="w-32 aspect-square shadow-2xl"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8.50989 2.00001H15.49C15.7225 1.99995 15.9007 1.99991 16.0565 2.01515C17.1643 2.12352 18.0711 2.78958 18.4556 3.68678H5.54428C5.92879 2.78958 6.83555 2.12352 7.94337 2.01515C8.09917 1.99991 8.27741 1.99995 8.50989 2.00001Z" fill="#1a8e31"></path> <path d="M6.31052 4.72312C4.91989 4.72312 3.77963 5.56287 3.3991 6.67691C3.39117 6.70013 3.38356 6.72348 3.37629 6.74693C3.77444 6.62636 4.18881 6.54759 4.60827 6.49382C5.68865 6.35531 7.05399 6.35538 8.64002 6.35547H15.5321C17.1181 6.35538 18.4835 6.35531 19.5639 6.49382C19.9833 6.54759 20.3977 6.62636 20.7958 6.74693C20.7886 6.72348 20.781 6.70013 20.773 6.67691C20.3925 5.56287 19.2522 4.72312 17.8616 4.72312H6.31052Z" fill="#1a8e31"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3276 7.54204H8.67239C5.29758 7.54204 3.61017 7.54204 2.66232 8.52887C1.71447 9.5157 1.93748 11.0403 2.38351 14.0896L2.80648 16.9811C3.15626 19.3724 3.33115 20.568 4.22834 21.284C5.12553 22 6.4488 22 9.09534 22H14.9046C17.5512 22 18.8745 22 19.7717 21.284C20.6689 20.568 20.8437 19.3724 21.1935 16.9811L21.6165 14.0896C22.0625 11.0404 22.2855 9.51569 21.3377 8.52887C20.3898 7.54204 18.7024 7.54204 15.3276 7.54204ZM14.5812 15.7942C15.1396 15.4481 15.1396 14.5519 14.5812 14.2058L11.2096 12.1156C10.6669 11.7792 10 12.2171 10 12.9099V17.0901C10 17.7829 10.6669 18.2208 11.2096 17.8844L14.5812 15.7942Z" fill="#1a8e31"></path> </g></svg>
-                    <h3 class="capitalize">Edição de vídeos</h3>
-                </div>
-                
-                <div class="rounded-3xl border-2 border-green-600 p-6 flex flex-col gap-4 justify-around items-center">
-                    <svg class="w-32 aspect-square shadow-2xl" fill="#1a8e31" height="200px" width="200px" version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M23.4,13.3C23,13.1,22.4,13,22,13.2l-1,0.4v-12C21,0.7,20.3,0,19.5,0h-2C16.7,0,16,0.7,16,1.5V3h-2.5C12.7,3,12,3.7,12,4.5 V8H9.5C8.7,8,8,8.7,8,9.5v5.2l-3,0.7v-0.3c0-0.6-0.3-1.1-0.8-1.3L3,13.2C2.8,12.5,2.2,12,1.5,12h-1C0.2,12,0,12.2,0,12.5v11 C0,23.8,0.2,24,0.5,24h1c0.7,0,1.3-0.5,1.5-1.2l1.2-0.6C4.6,22,4.9,21.5,5,21l4.8,2.8c0.2,0.1,0.5,0.2,0.8,0.2 c0.2,0,0.5-0.1,0.7-0.2l12-6.4c0.5-0.3,0.8-0.8,0.8-1.3v-1.5C24,14.1,23.8,13.6,23.4,13.3z M2,22.5C2,22.8,1.8,23,1.5,23H1V13h0.5 C1.8,13,2,13.2,2,13.5V22.5z M4,20.9c0,0.2-0.1,0.4-0.3,0.4L3,21.7v-7.4l0.7,0.4C3.9,14.8,4,14.9,4,15.1V20.9z M17,1.5 C17,1.2,17.2,1,17.5,1h2C19.8,1,20,1.2,20,1.5v12.4L17,15V1.5z M13,4.5C13,4.2,13.2,4,13.5,4H16v11.4l-1.4,0.5l-0.3-1.1 c-0.2-0.6-0.7-1-1.2-1.1V4.5z M9,9.5C9,9.2,9.2,9,9.5,9H12v4.8l-3,0.7V9.5z M23,16c0,0.2-0.1,0.4-0.3,0.4l-12,6.5 c-0.1,0.1-0.3,0.1-0.5,0L5,19.9v-3.5l7.7-1.7c0.3-0.1,0.5,0.1,0.6,0.4l0.5,1.6c0,0.1,0,0.3,0,0.4c-0.1,0.1-0.2,0.2-0.3,0.2l-3,0.7 c-0.3,0.1-0.4,0.3-0.4,0.6c0.1,0.2,0.3,0.4,0.5,0.4c0,0,0.1,0,0.1,0l3-0.7c0.4-0.1,0.7-0.4,0.9-0.7c0.1-0.2,0.2-0.4,0.2-0.6l7.6-2.8 c0.2-0.1,0.3,0,0.5,0.1c0.1,0.1,0.2,0.2,0.2,0.4V16z"></path> </g></svg>
-                    <h3 class="capitalize">Marketing Digital</h3>
-                </div>
-                
-            </div>
-            
-        </section>
-        
-        <footer id="contact"  class="bg-[#121212] px-[4%] w-full min-h-100 py-40 sm:grid grid-cols-2 border-t border-green-200">
-            <div class="col-span-1 mb-16 sm:mb-0 flex flex-col justify-center sm:items-center gap-8 p-3">
-                
-                <div class="flex flex-col justify-center flex-wrap gap-8">
-                    <img src="./images/logo2.png" class="w-100 aspect-[20/9] object-cover">
-                    <div class="flex flex-col gap-1">
-                        <h3 class="hidden">Redes Sociais</h3>
-                        <nav class="flex flex-wrap items-center gap-3 text-md text-[#eee] pl-1">
-                            <a href="">
-                                <svg class="w-8 aspect-square" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 509 509"><g fill-rule="nonzero"><path fill="#0866FF" d="M509 254.5C509 113.94 395.06 0 254.5 0S0 113.94 0 254.5C0 373.86 82.17 474 193.02 501.51V332.27h-52.48V254.5h52.48v-33.51c0-86.63 39.2-126.78 124.24-126.78 16.13 0 43.95 3.17 55.33 6.33v70.5c-6.01-.63-16.44-.95-29.4-.95-41.73 0-57.86 15.81-57.86 56.91v27.5h83.13l-14.28 77.77h-68.85v174.87C411.35 491.92 509 384.62 509 254.5z"/><path fill="#fff" d="M354.18 332.27l14.28-77.77h-83.13V227c0-41.1 16.13-56.91 57.86-56.91 12.96 0 23.39.32 29.4.95v-70.5c-11.38-3.16-39.2-6.33-55.33-6.33-85.04 0-124.24 40.16-124.24 126.78v33.51h-52.48v77.77h52.48v169.24c19.69 4.88 40.28 7.49 61.48 7.49 10.44 0 20.72-.64 30.83-1.86V332.27h68.85z"/></g></svg>
-                            </a>
-                            <a href="">
-                                <svg class="w-8 aspect-square" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 132.004 132"><defs><linearGradient id="b"><stop offset="0" stop-color="#3771c8"/><stop stop-color="#3771c8" offset=".128"/><stop offset="1" stop-color="#60f" stop-opacity="0"/></linearGradient><linearGradient id="a"><stop offset="0" stop-color="#fd5"/><stop offset=".1" stop-color="#fd5"/><stop offset=".5" stop-color="#ff543e"/><stop offset="1" stop-color="#c837ab"/></linearGradient><radialGradient id="c" cx="158.429" cy="578.088" r="65" xlink:href="#a" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 -1.98198 1.8439 0 -1031.402 454.004)" fx="158.429" fy="578.088"/><radialGradient id="d" cx="147.694" cy="473.455" r="65" xlink:href="#b" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.17394 .86872 -3.5818 .71718 1648.348 -458.493)" fx="147.694" fy="473.455"/></defs><path fill="url(#c)" d="M65.03 0C37.888 0 29.95.028 28.407.156c-5.57.463-9.036 1.34-12.812 3.22-2.91 1.445-5.205 3.12-7.47 5.468C4 13.126 1.5 18.394.595 24.656c-.44 3.04-.568 3.66-.594 19.188-.01 5.176 0 11.988 0 21.125 0 27.12.03 35.05.16 36.59.45 5.42 1.3 8.83 3.1 12.56 3.44 7.14 10.01 12.5 17.75 14.5 2.68.69 5.64 1.07 9.44 1.25 1.61.07 18.02.12 34.44.12 16.42 0 32.84-.02 34.41-.1 4.4-.207 6.955-.55 9.78-1.28 7.79-2.01 14.24-7.29 17.75-14.53 1.765-3.64 2.66-7.18 3.065-12.317.088-1.12.125-18.977.125-36.81 0-17.836-.04-35.66-.128-36.78-.41-5.22-1.305-8.73-3.127-12.44-1.495-3.037-3.155-5.305-5.565-7.624C116.9 4 111.64 1.5 105.372.596 102.335.157 101.73.027 86.19 0H65.03z" transform="translate(1.004 1)"/><path fill="url(#d)" d="M65.03 0C37.888 0 29.95.028 28.407.156c-5.57.463-9.036 1.34-12.812 3.22-2.91 1.445-5.205 3.12-7.47 5.468C4 13.126 1.5 18.394.595 24.656c-.44 3.04-.568 3.66-.594 19.188-.01 5.176 0 11.988 0 21.125 0 27.12.03 35.05.16 36.59.45 5.42 1.3 8.83 3.1 12.56 3.44 7.14 10.01 12.5 17.75 14.5 2.68.69 5.64 1.07 9.44 1.25 1.61.07 18.02.12 34.44.12 16.42 0 32.84-.02 34.41-.1 4.4-.207 6.955-.55 9.78-1.28 7.79-2.01 14.24-7.29 17.75-14.53 1.765-3.64 2.66-7.18 3.065-12.317.088-1.12.125-18.977.125-36.81 0-17.836-.04-35.66-.128-36.78-.41-5.22-1.305-8.73-3.127-12.44-1.495-3.037-3.155-5.305-5.565-7.624C116.9 4 111.64 1.5 105.372.596 102.335.157 101.73.027 86.19 0H65.03z" transform="translate(1.004 1)"/><path fill="#fff" d="M66.004 18c-13.036 0-14.672.057-19.792.29-5.11.234-8.598 1.043-11.65 2.23-3.157 1.226-5.835 2.866-8.503 5.535-2.67 2.668-4.31 5.346-5.54 8.502-1.19 3.053-2 6.542-2.23 11.65C18.06 51.327 18 52.964 18 66s.058 14.667.29 19.787c.235 5.11 1.044 8.598 2.23 11.65 1.227 3.157 2.867 5.835 5.536 8.503 2.667 2.67 5.345 4.314 8.5 5.54 3.054 1.187 6.543 1.996 11.652 2.23 5.12.233 6.755.29 19.79.29 13.037 0 14.668-.057 19.788-.29 5.11-.234 8.602-1.043 11.656-2.23 3.156-1.226 5.83-2.87 8.497-5.54 2.67-2.668 4.31-5.346 5.54-8.502 1.18-3.053 1.99-6.542 2.23-11.65.23-5.12.29-6.752.29-19.788 0-13.036-.06-14.672-.29-19.792-.24-5.11-1.05-8.598-2.23-11.65-1.23-3.157-2.87-5.835-5.54-8.503-2.67-2.67-5.34-4.31-8.5-5.535-3.06-1.187-6.55-1.996-11.66-2.23-5.12-.233-6.75-.29-19.79-.29zm-4.306 8.65c1.278-.002 2.704 0 4.306 0 12.816 0 14.335.046 19.396.276 4.68.214 7.22.996 8.912 1.653 2.24.87 3.837 1.91 5.516 3.59 1.68 1.68 2.72 3.28 3.592 5.52.657 1.69 1.44 4.23 1.653 8.91.23 5.06.28 6.58.28 19.39s-.05 14.33-.28 19.39c-.214 4.68-.996 7.22-1.653 8.91-.87 2.24-1.912 3.835-3.592 5.514-1.68 1.68-3.275 2.72-5.516 3.59-1.69.66-4.232 1.44-8.912 1.654-5.06.23-6.58.28-19.396.28-12.817 0-14.336-.05-19.396-.28-4.68-.216-7.22-.998-8.913-1.655-2.24-.87-3.84-1.91-5.52-3.59-1.68-1.68-2.72-3.276-3.592-5.517-.657-1.69-1.44-4.23-1.653-8.91-.23-5.06-.276-6.58-.276-19.398s.046-14.33.276-19.39c.214-4.68.996-7.22 1.653-8.912.87-2.24 1.912-3.84 3.592-5.52 1.68-1.68 3.28-2.72 5.52-3.592 1.692-.66 4.233-1.44 8.913-1.655 4.428-.2 6.144-.26 15.09-.27zm29.928 7.97c-3.18 0-5.76 2.577-5.76 5.758 0 3.18 2.58 5.76 5.76 5.76 3.18 0 5.76-2.58 5.76-5.76 0-3.18-2.58-5.76-5.76-5.76zm-25.622 6.73c-13.613 0-24.65 11.037-24.65 24.65 0 13.613 11.037 24.645 24.65 24.645C79.617 90.645 90.65 79.613 90.65 66S79.616 41.35 66.003 41.35zm0 8.65c8.836 0 16 7.163 16 16 0 8.836-7.164 16-16 16-8.837 0-16-7.164-16-16 0-8.837 7.163-16 16-16z"/></svg>
-                            </a>
-                            <a href="">
-                                <svg class="w-8 aspect-square" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 512"><path fill="#fff" d="M474.919 0H38.592C17.72 0 0 16.504 0 36.841V475.14C0 495.496 11.629 512 32.492 512h436.327C489.718 512 512 495.496 512 475.14V36.841C512 16.504 495.809 0 474.919 0zM195.043 195.043h68.928v35.136h.755c10.505-18.945 41.541-38.177 79.921-38.177 73.655 0 94.214 39.108 94.214 111.538v135.321h-73.148V316.883c0-32.427-12.947-60.883-43.227-60.883-36.768 0-54.295 24.889-54.295 65.758v117.103h-73.148V195.043zM73.139 438.861h73.148V195.043H73.139v243.818zm82.289-329.148c0 25.258-20.457 45.715-45.715 45.715-25.258 0-45.715-20.457-45.715-45.715 0-25.258 20.457-45.715 45.715-45.715 25.258 0 45.715 20.457 45.715 45.715z"/></svg>
-                            </a>
-                            <a href="">
-                                <svg class="w-8 aspect-square" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><defs><style>.cls-1,.cls-2{fill-rule:evenodd;}.cls-1{fill:url(#linear-gradient);}.cls-2{fill:#fff;}</style><linearGradient id="linear-gradient" x1="1337.28" y1="518.24" x2="1337.28" y2="-2164.82" gradientTransform="matrix(0.19, 0, 0, -0.19, 0.81, 98.89)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#61fd7d"/><stop offset="1" stop-color="#2bb826"/></linearGradient></defs><title>wa</title><path class="cls-1" d="M512,382.07c0,2.8-.09,8.88-.26,13.58-.41,11.49-1.32,26.32-2.7,33.07a109.76,109.76,0,0,1-9.27,27.71,98.45,98.45,0,0,1-43.43,43.39,110.21,110.21,0,0,1-27.87,9.28c-6.69,1.35-21.41,2.24-32.82,2.65-4.71.17-10.79.25-13.58.25l-252.1,0c-2.8,0-8.88-.09-13.58-.26-11.49-.41-26.32-1.32-33.07-2.69a110.37,110.37,0,0,1-27.72-9.28A98.5,98.5,0,0,1,12.18,456.3,110.21,110.21,0,0,1,2.9,428.43C1.55,421.74.66,407,.25,395.61.08,390.91,0,384.82,0,382l0-252.1c0-2.8.09-8.88.25-13.58C.71,104.86,1.62,90,3,83.28a110.37,110.37,0,0,1,9.27-27.72A98.59,98.59,0,0,1,55.7,12.18,110.21,110.21,0,0,1,83.57,2.9C90.26,1.55,105,.66,116.39.25,121.09.08,127.18,0,130,0l252.1,0c2.8,0,8.88.09,13.58.25C407.14.71,422,1.62,428.72,3a110.37,110.37,0,0,1,27.72,9.27A98.59,98.59,0,0,1,499.82,55.7a110.21,110.21,0,0,1,9.28,27.87c1.35,6.69,2.24,21.41,2.65,32.82.17,4.7.25,10.79.25,13.58Z" transform="translate(0 0)"/><path class="cls-2" d="M379.56,131.67A172.4,172.4,0,0,0,256.67,80.73C161,80.73,83.05,158.64,83.05,254.42a173.47,173.47,0,0,0,23.2,86.82l-24.65,90,92.08-24.17a173.55,173.55,0,0,0,83,21.17h.07c95.73,0,173.69-77.91,173.69-173.69A172.73,172.73,0,0,0,379.53,131.7l0,0ZM256.72,399a144.17,144.17,0,0,1-73.52-20.14l-5.29-3.15L123.27,390l14.59-53.27-3.42-5.47a143.29,143.29,0,0,1-22.11-76.81C112.33,174.81,177.1,110,256.8,110A144.34,144.34,0,0,1,401.12,254.48c-.07,79.67-64.83,144.46-144.41,144.46v0ZM335.87,290.8c-4.32-2.2-25.68-12.67-29.65-14.12s-6.85-2.19-9.8,2.2-11.22,14.11-13.76,17-5.06,3.29-9.37,1.09-18.35-6.77-34.92-21.56c-12.88-11.5-21.61-25.74-24.15-30s-.29-6.71,1.92-8.83c2-1.93,4.32-5.06,6.51-7.6s2.88-4.32,4.32-7.26.74-5.42-.35-7.6-9.8-23.55-13.34-32.25c-3.49-8.51-7.12-7.32-9.79-7.47s-5.42-.13-8.29-.13a16,16,0,0,0-11.57,5.41c-4,4.32-15.2,14.86-15.2,36.22s15.54,42,17.72,44.91,30.61,46.76,74.14,65.54c10.34,4.44,18.42,7.11,24.72,9.18a60,60,0,0,0,27.32,1.71c8.35-1.23,25.68-10.49,29.31-20.62s3.63-18.83,2.55-20.62-3.91-3-8.29-5.22l0,0Z" transform="translate(0 0)"/></svg>
-                            </a>
-                        </nav>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <h3 class="font-medium text-xl text-[#ffffffa2]">Links rápidos</h3>
-                        <nav class="flex flex-col gap-1 text-md text-[#ffffffa2] pl-1">
-                            <a href="#home">Home</a>
-                            <a href="#about">Sobre</a>
-                            <a href="#services">Serviços</a>
-                            <a href="#contact">Contacto</a>
-                        </nav>
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <h3 class="font-medium text-xl text-[#eee]">Contactos</h3>
-                        <nav class="flex flex-col gap-2 text-md text-[#eee] pl-1">
-                            <div class="flex gap-2 items-center">
-                                <svg class="w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <rect x="3" y="5" width="18" height="14" rx="2" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></rect> </g></svg>
-                                netship@gmail.com
-                            </div>
-                            <div class="flex gap-2 items-center">
-                                <svg class="w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M14.3308 15.9402L15.6608 14.6101C15.8655 14.403 16.1092 14.2384 16.3778 14.1262C16.6465 14.014 16.9347 13.9563 17.2258 13.9563C17.517 13.9563 17.8052 14.014 18.0739 14.1262C18.3425 14.2384 18.5862 14.403 18.7908 14.6101L20.3508 16.1702C20.5579 16.3748 20.7224 16.6183 20.8346 16.887C20.9468 17.1556 21.0046 17.444 21.0046 17.7351C21.0046 18.0263 20.9468 18.3146 20.8346 18.5833C20.7224 18.8519 20.5579 19.0954 20.3508 19.3L19.6408 20.02C19.1516 20.514 18.5189 20.841 17.8329 20.9541C17.1469 21.0672 16.4427 20.9609 15.8208 20.6501C10.4691 17.8952 6.11008 13.5396 3.35083 8.19019C3.03976 7.56761 2.93414 6.86242 3.04914 6.17603C3.16414 5.48963 3.49384 4.85731 3.99085 4.37012L4.70081 3.65015C5.11674 3.23673 5.67937 3.00464 6.26581 3.00464C6.85225 3.00464 7.41488 3.23673 7.83081 3.65015L9.40082 5.22021C9.81424 5.63615 10.0463 6.19871 10.0463 6.78516C10.0463 7.3716 9.81424 7.93416 9.40082 8.3501L8.0708 9.68018C8.95021 10.8697 9.91617 11.9926 10.9608 13.04C11.9994 14.0804 13.116 15.04 14.3008 15.9102L14.3308 15.9402Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                                +244 943 318 124
-                            </div>
-                            <div class="flex gap-2 items-center">
-                                <svg class="w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 21C15.5 17.4 19 14.1764 19 10.2C19 6.22355 15.866 3 12 3C8.13401 3 5 6.22355 5 10.2C5 14.1764 8.5 17.4 12 21Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                                Angola, Luanda
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-                
-            </div>
-            
-            
-            <div class="col-span-1 flex justify-center items-center">
-                <form class="w-full max-w-lg flex flex-col gap-3 p-8 rounded-2xl bg-[#191919]">
-                    <h2 class="text-3xl font-bold text-center">Contacte-nos</h2>
-                    
-                    <label class="flex flex-col gap-1">
-                        <span class="text-sm">Seu nome</span>
-                        <input class="outline-none text-md block p-3 bg-[#222222] rounded-xl w-full" placeholder="Nome">
-                    </label>
-                    
-                    <select class="text-md block p-3 py-4 bg-[#222222] rounded-xl w-full">
-                        <option value="">Seleccione um serviços</option>
-                        <option value="">Criação de um site</option>
-                        <option value="">Manutenção da interface de um site</option>
-                        <option value="">Marketing digital</option>
-                        <option value="">Edição de vídeos</option>
-                    </select>
-                    
-                    <label>
-                        <span class="text-sm">Sua mensagem</span>
-                        <textarea class="outline-none text-md block p-3 bg-[#222222] rounded-xl w-full resize-none" placeholder="Mensagem" rows="4"></textarea>
-                    </label>
-                    
-                    <button class="outline-none uppercase font-semibold text-2md p-3 w-full px-4 bg-green-600 transition-all active:brightness-75 hover:brightness-75 rounded-xl" >Enviar</button>
-                </form>
-            </div>
-            
-        </footer>
     </main>
     
-    <script src="./scripts.js"></script>
+    <section id="about" class="w-screen min-h-180 sm:grid grid-cols-2 gap-2 px-[8%] py-32 bg-gradient-to-b sm:bg-gradient-to-r from-[#121212] via-[#121212] to-green-600">
+        
+        <div class="flex flex-col gap-6 col-span-1">
+            
+            <h2 class="text-3xl xl:text-4xl font-bold relative before:content-[''] before:absolute before:bottom-[-20%] before:left-0 before:bg-green-600 before:h-[1.85px] before:rounded-sm before:w-3/11 ">Quem Somos</h2>
+            
+            <h3 class="text-2xl xl:text-3xl font-semibold">Jovens para o 
+                <span class="text-green-500">desenvolvimento de Angola!</span>
+            </h3>
+            
+            <p class="font-medium text-xl max-w-full">Somos uma StartUp focada na criação de soluções digitais inovadoras para impulsionar o crescimento de Angola </p>
+            
+        </div>
+            
+    </section>
+    
+    <section id="services" class="px-[4%] w-screen min-h-100 py-40 flex flex-col">
+        
+        <h2 class="text-3xl xl:text-4xl font-bold relative text-center bg-gradient-to-t from-green-600 to-[#121212] bg-clip-text text-transparent">Nossos <span>Serviços</span></h2>
+        <h3 class="text-2xl xl:text-3xl font-medium relative text-center text-[#ffffffb9]">Soluções digitais que transformam</h3>
+        
+        <div class="services-grid grid gap-4 my-8 text-xl font-bold">
+            
+            <div class="rounded-3xl border-2 border-green-600 p-6 flex flex-col gap-4 justify-around items-center">
+                <svg class="w-32 aspect-square shadow-2xl" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.982 19.61c.454-.7.909-1.6 1.236-2.755.755.29 1.273.636 1.591.909a8.182 8.182 0 0 1-2.864 1.845h.037v.001zm-8.8-1.855c.336-.273.845-.61 1.6-.91.336 1.164.773 2.064 1.236 2.764A8.2 8.2 0 0 1 6.2 17.755h-.018zm10.636-6.664c-.028-.81-.11-1.619-.245-2.418 1-.364 1.727-.8 2.236-1.2a8.136 8.136 0 0 1 1.282 3.618h-3.273zm-8.973-4.2a5.936 5.936 0 0 1-1.481-.8 8.2 8.2 0 0 1 2.654-1.7c-.427.636-.845 1.454-1.182 2.5h.01-.001zm7.137-2.5a8.145 8.145 0 0 1 2.654 1.7 6.01 6.01 0 0 1-1.481.8 9.58 9.58 0 0 0-1.182-2.5h.009zM14.8 9.118c.09.6.182 1.246.2 1.973H9c.027-.727.09-1.382.182-1.973 1.855.334 3.754.334 5.609 0h.009zM12 7.545c-.91 0-1.71-.072-2.39-.181.726-2.237 1.854-3.137 2.39-3.455.518.318 1.655 1.227 2.382 3.455A15.04 15.04 0 0 1 12 7.545zm-6.818-.072a8.03 8.03 0 0 0 2.245 1.2 18.368 18.368 0 0 0-.245 2.418h-3.31a8.13 8.13 0 0 1 1.319-3.618h-.01.001zm-1.3 5.436h3.3c.036.782.09 1.5.2 2.155a7.682 7.682 0 0 0-2.31 1.272 8.11 8.11 0 0 1-1.2-3.427h.01zM12 14.364c-1.09 0-2.027.09-2.845.236A16.91 16.91 0 0 1 9 12.91h6c-.027.608-.073 1.18-.145 1.69A15.388 15.388 0 0 0 12 14.355v.009zm0 5.727c-.545-.327-1.745-1.3-2.473-3.727A14.095 14.095 0 0 1 12 16.182c.955 0 1.773.063 2.482.182-.727 2.454-1.927 3.4-2.473 3.727H12zm6.927-3.764a7.634 7.634 0 0 0-2.309-1.272 17.95 17.95 0 0 0 .2-2.146h3.31a8.11 8.11 0 0 1-1.2 3.418h-.001zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" fill="#1a8e31"></path></g></svg>
+                <h3 class="capitalize">criação, manutenção e correcção de sites</h3>
+            </div>
+            
+            <div class="rounded-3xl border-2 border-green-600 p-6 flex flex-col gap-4 justify-around items-center">
+                <svg class="w-32 aspect-square shadow-2xl"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8.50989 2.00001H15.49C15.7225 1.99995 15.9007 1.99991 16.0565 2.01515C17.1643 2.12352 18.0711 2.78958 18.4556 3.68678H5.54428C5.92879 2.78958 6.83555 2.12352 7.94337 2.01515C8.09917 1.99991 8.27741 1.99995 8.50989 2.00001Z" fill="#1a8e31"></path> <path d="M6.31052 4.72312C4.91989 4.72312 3.77963 5.56287 3.3991 6.67691C3.39117 6.70013 3.38356 6.72348 3.37629 6.74693C3.77444 6.62636 4.18881 6.54759 4.60827 6.49382C5.68865 6.35531 7.05399 6.35538 8.64002 6.35547H15.5321C17.1181 6.35538 18.4835 6.35531 19.5639 6.49382C19.9833 6.54759 20.3977 6.62636 20.7958 6.74693C20.7886 6.72348 20.781 6.70013 20.773 6.67691C20.3925 5.56287 19.2522 4.72312 17.8616 4.72312H6.31052Z" fill="#1a8e31"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3276 7.54204H8.67239C5.29758 7.54204 3.61017 7.54204 2.66232 8.52887C1.71447 9.5157 1.93748 11.0403 2.38351 14.0896L2.80648 16.9811C3.15626 19.3724 3.33115 20.568 4.22834 21.284C5.12553 22 6.4488 22 9.09534 22H14.9046C17.5512 22 18.8745 22 19.7717 21.284C20.6689 20.568 20.8437 19.3724 21.1935 16.9811L21.6165 14.0896C22.0625 11.0404 22.2855 9.51569 21.3377 8.52887C20.3898 7.54204 18.7024 7.54204 15.3276 7.54204ZM14.5812 15.7942C15.1396 15.4481 15.1396 14.5519 14.5812 14.2058L11.2096 12.1156C10.6669 11.7792 10 12.2171 10 12.9099V17.0901C10 17.7829 10.6669 18.2208 11.2096 17.8844L14.5812 15.7942Z" fill="#1a8e31"></path> </g></svg>
+                <h3 class="capitalize">Edição de vídeos</h3>
+            </div>
+            
+            <div class="rounded-3xl border-2 border-green-600 p-6 flex flex-col gap-4 justify-around items-center">
+                <svg class="w-32 aspect-square shadow-2xl" fill="#1a8e31" height="200px" width="200px" version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M23.4,13.3C23,13.1,22.4,13,22,13.2l-1,0.4v-12C21,0.7,20.3,0,19.5,0h-2C16.7,0,16,0.7,16,1.5V3h-2.5C12.7,3,12,3.7,12,4.5 V8H9.5C8.7,8,8,8.7,8,9.5v5.2l-3,0.7v-0.3c0-0.6-0.3-1.1-0.8-1.3L3,13.2C2.8,12.5,2.2,12,1.5,12h-1C0.2,12,0,12.2,0,12.5v11 C0,23.8,0.2,24,0.5,24h1c0.7,0,1.3-0.5,1.5-1.2l1.2-0.6C4.6,22,4.9,21.5,5,21l4.8,2.8c0.2,0.1,0.5,0.2,0.8,0.2 c0.2,0,0.5-0.1,0.7-0.2l12-6.4c0.5-0.3,0.8-0.8,0.8-1.3v-1.5C24,14.1,23.8,13.6,23.4,13.3z M2,22.5C2,22.8,1.8,23,1.5,23H1V13h0.5 C1.8,13,2,13.2,2,13.5V22.5z M4,20.9c0,0.2-0.1,0.4-0.3,0.4L3,21.7v-7.4l0.7,0.4C3.9,14.8,4,14.9,4,15.1V20.9z M17,1.5 C17,1.2,17.2,1,17.5,1h2C19.8,1,20,1.2,20,1.5v12.4L17,15V1.5z M13,4.5C13,4.2,13.2,4,13.5,4H16v11.4l-1.4,0.5l-0.3-1.1 c-0.2-0.6-0.7-1-1.2-1.1V4.5z M9,9.5C9,9.2,9.2,9,9.5,9H12v4.8l-3,0.7V9.5z M23,16c0,0.2-0.1,0.4-0.3,0.4l-12,6.5 c-0.1,0.1-0.3,0.1-0.5,0L5,19.9v-3.5l7.7-1.7c0.3-0.1,0.5,0.1,0.6,0.4l0.5,1.6c0,0.1,0,0.3,0,0.4c-0.1,0.1-0.2,0.2-0.3,0.2l-3,0.7 c-0.3,0.1-0.4,0.3-0.4,0.6c0.1,0.2,0.3,0.4,0.5,0.4c0,0,0.1,0,0.1,0l3-0.7c0.4-0.1,0.7-0.4,0.9-0.7c0.1-0.2,0.2-0.4,0.2-0.6l7.6-2.8 c0.2-0.1,0.3,0,0.5,0.1c0.1,0.1,0.2,0.2,0.2,0.4V16z"></path> </g></svg>
+                <h3 class="capitalize">Marketing Digital</h3>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+    <footer id="contact"  class="px-[4%] w-screen min-h-100 py-40 grid sm:grid-cols-2 border-t border-green-200">
+        <div class="col-span-1">
+            
+        </div>
+        
+        
+        <div class="col-span-1">
+            <form class="flex flex-col gap-3 p-8 rounded-2xl bg-[#191919]">
+                <h2 class="text-3xl font-bold text-center">Contacte-nos</h2>
+                
+                <label class="flex flex-col gap-1">
+                    <span class="text-sm">Seu nome</span>
+                    <input class="outline-none text-md block p-3 bg-[#222222] rounded-xl w-full" placeholder="Nome">
+                </label>
+                
+                <select class="text-md block p-3 py-4 bg-[#222222] rounded-xl w-full">
+                    <option value="">Seleccione um serviços</option>
+                    <option value="">Criação de um site</option>
+                    <option value="">Manutenção da interface de um site</option>
+                    <option value="">Marketing digital</option>
+                    <option value="">Edição de vídeos</option>
+                </select>
+                
+                <label>
+                    <span class="text-sm">Sua mensagem</span>
+                    <textarea class="outline-none text-md block p-3 bg-[#222222] rounded-xl w-full resize-none" placeholder="Mensagem" rows="4"></textarea>
+                </label>
+                
+                <button class="outline-none uppercase font-semibold text-2md p-3 w-full px-4 bg-green-600 transition-all active:brightness-75 hover:brightness-75 rounded-xl" >Enviar</button>
+            </form>
+        </div>
+        
+    </footer>
+    
+    <br><br><br><br><br>
+    
+    <script src="send.js"></script>
 </body>
 </html>
