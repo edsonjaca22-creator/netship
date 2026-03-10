@@ -98,6 +98,10 @@
     animation: fadeInUp 0.75s ease;
 }
 
+.fadeInDown {
+     animation: fadeInDown 0.75s ease;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -107,7 +111,7 @@
 @keyframes fadeInDown {
     from {
         opacity: 0;
-        transform: translateY(-8px);
+        transform: translateY(-14px);
     }
 }
 @keyframes fadeInLeft {
