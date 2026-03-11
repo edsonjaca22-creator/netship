@@ -1,5 +1,5 @@
 const url = "https://api.groq.com/openai/v1/chat/completions";
-const key = "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"; // ⚠️ mover para backend/api
+const key = "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"; // ⚠️ mover para backend
 
 let messages = [
 {
