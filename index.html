@@ -18,13 +18,22 @@
         <svg class="w-full aspect-square" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 10.5H16" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M8 14H13.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
     </div>
     
+    
+    
     <div class="chat-container hidden p-4 z-30 overflow-hidden m-4 rounded-3xl flex flex-col justify-between bg-[#f9f9f9] z-20 fixed inset-0 sm:inset-auto sm:bottom-2 sm:right-4 sm:w-80 sm:max-h-8/10">
-        <header class="text-[#111] flex items-center justify-between gap-3 text-center font-semibold uppercase text-green-500">
+        <header class="bg-gradient-to-r m-[-18px] mb-0 p-3 from-green-500 to-green-600 border-[0.05px] border-green-400 text-[#111] flex items-center justify-between gap-2 font-semibold uppercase text-green-500">
+            <div class="flex items-center gap-2">
+                <svg class="w-10 aspect-square bg-green-400 p-1 rounded-2xl" fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M 16 1 C 14.894531 1 14 1.894531 14 3 C 14 3.738281 14.402344 4.371094 15 4.71875 L 15 7 L 10 7 C 7.25 7 5 9.25 5 12 L 5 14 L 2 14 L 2 22 L 5 22 L 5 27 L 27 27 L 27 22 L 30 22 L 30 14 L 27 14 L 27 12 C 27 9.25 24.75 7 22 7 L 17 7 L 17 4.71875 C 17.597656 4.371094 18 3.738281 18 3 C 18 1.894531 17.105469 1 16 1 Z M 10 9 L 22 9 C 23.667969 9 25 10.332031 25 12 L 25 25 L 23 25 L 23 20 L 9 20 L 9 25 L 7 25 L 7 12 C 7 10.332031 8.332031 9 10 9 Z M 12 13 C 10.894531 13 10 13.894531 10 15 C 10 16.105469 10.894531 17 12 17 C 13.105469 17 14 16.105469 14 15 C 14 13.894531 13.105469 13 12 13 Z M 20 13 C 18.894531 13 18 13.894531 18 15 C 18 16.105469 18.894531 17 20 17 C 21.105469 17 22 16.105469 22 15 C 22 13.894531 21.105469 13 20 13 Z M 4 16 L 5 16 L 5 20 L 4 20 Z M 27 16 L 28 16 L 28 20 L 27 20 Z M 11 22 L 13 22 L 13 25 L 11 25 Z M 15 22 L 17 22 L 17 25 L 15 25 Z M 19 22 L 21 22 L 21 25 L 19 25 Z"></path></g></svg>
+                <div class="flex flex-col">
+                    <p class="text-xs text-green-50">Netship AO</p>
+                    <p class="text-[8px] text-green-50">Assistente Virtual • Online agora</p>
+                </div>
+            </div>
             <button onclick="closeChat()" class="max-w-8 button-send transition-all disabled:brightness-50 w-8 aspect-square rounded-xl flex-1 items-center justify-center">
                 <p class="text-xl font-bold">×</p>
                 <svg class="hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"></path> <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
             </button>
-            <p>Assistinte</p>
+            
         </header>
         
         <div class="scroll-smooth min-h-56 flex-1 py-3 overflow-y-scroll flex flex-col gap-3 messages-container"></div>

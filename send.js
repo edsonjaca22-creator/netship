@@ -184,6 +184,7 @@ async function sendMessage(send) {
                         - Para perguntas sobre a equipa: "A Netship AO é formada por jovens programadores e designers angolanos apaixonados por tecnologia. Trabalhamos juntos para criar soluções inovadoras e impulsionar o desenvolvimento digital do nosso país."
                         - Para perguntas fora do tema: "Sou a assistente da Netship AO e meu papel é ajudar com informações sobre nossos serviços tecnológicos. Se tiver interesse em saber mais sobre como podemos ajudar o seu negócio, ficarei feliz em responder!"
                         
+                        So envia mensagem longas quando for necessario, ta. 
                         Se nas instrucoes anteriores eu escreve errado, ou sem acentos, fique a vontade para corrigir e/ou melhorar...
                         `
                     },
