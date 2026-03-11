@@ -12,8 +12,8 @@ let messages = [
 function createMessageElement(message) {
     const div = document.createElement('div');
     div.className = message.senderId === 'user'
-        ? 'text-[#111] p-3 bg-green-400 rounded-2xl rounded-tr-xs w-10/12 ml-auto m-left'
-        : 'text-[#111] p-3 rounded-2xl rounded-tl-xs w-10/12 m-right'
+        ? 'text-white p-3 bg-green-400 rounded-2xl rounded-tr-xs w-10/12 ml-auto m-left text-xl'
+        : 'text-[#111] p-3 rounded-2xl rounded-tl-xs w-10/12 m-right text-xl'
 
     const pContent = document.createElement('p')
     pContent.textContent = message.content; // Previne XSS
@@ -52,8 +52,8 @@ function getSubmit() {
 }
 
 async function sendMessage(send) {
-    const btn = document.querySelector('.button-send');
-    btn.disabled = true;
+    let btn = document.querySelector('.button-send')
+    btn.disabled = true
 
     try {
         const res = await fetch(url, {
@@ -102,7 +102,7 @@ async function sendMessage(send) {
         messages.push(errorMsg);
         appendMessage(errorMsg);
     } finally {
-        btn.disabled = false;
+        btn.disabled = false
     }
 }
 
